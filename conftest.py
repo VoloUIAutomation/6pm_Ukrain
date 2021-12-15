@@ -14,6 +14,12 @@ def driver():
 
 
 @pytest.fixture
-def get_data():
+def test_data():
     with open(os.path.join(os.path.dirname(__file__), 'TestingData', 'data.json')) as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def config_data():
+    with open(os.path.join(os.path.dirname(__file__), 'TestingData', 'config.json')) as f:
         return json.load(f)

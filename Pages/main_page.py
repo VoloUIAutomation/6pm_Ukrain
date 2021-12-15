@@ -1,4 +1,4 @@
-from Pages.base_page import BasePageHelper
+from Pages.base_page import *
 
 
 class MainPageHelper(BasePageHelper):
