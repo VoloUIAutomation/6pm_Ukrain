@@ -1,8 +1,9 @@
 from Pages.base_page import *
+from selenium.webdriver.common.by import By
 
-LOCATOR_EMAIL_INPUT = ()
-LOCATOR_PSW_INPUT = ()
-LOCATOR_SIGN_IN_BTN = ()
+LOCATOR_EMAIL_INPUT = (By.ID, 'ap_email')
+LOCATOR_PSW_INPUT = (By.ID, 'ap_password')
+LOCATOR_SIGN_IN_BTN = (By.ID, 'signInSubmit')
 
 
 class LoginPageHelper(BasePageHelper):
