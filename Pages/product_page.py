@@ -25,8 +25,9 @@ class ProductPageHelper(BasePageHelper):
         count = self.find_element(self.driver, elem).get_attribute("aria-label")
         return int(re.sub("\\D", "", count))
 
-    def add_to_favorites(self):
-        self.find_element(self.driver, LOCATOR_ADD_TO_FAVORITES_BTN).click()
+    def add_to_favorites(self, position_of_item):
+        items = self.find_elements(self.driver, LOCATOR_ADD_TO_FAVORITES_BTN)
+        items[position_of_item].click()
 
     def add_to_bag(self, position_of_item):
         items = self.find_elements(self.driver, LOCATOR_PRODUCT_ITEM)

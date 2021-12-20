@@ -5,7 +5,7 @@ from Pages.product_page import ProductPageHelper
 def test_check_the_product_search_by_brand(driver, test_data, config_data):
     page = BasePageHelper(driver)
     page.open_url(test_data['url'])
-    page.got_to_sunglasses()
+    page.go_to_sunglasses()
     page = ProductPageHelper(driver)
     page.filter_by_brand(config_data['brand_name'])
     expected_items_count = page.get_filter_count(config_data['brand_name'])

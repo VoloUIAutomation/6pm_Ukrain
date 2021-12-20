@@ -26,21 +26,22 @@ class BasePageHelper:
 
     def go_to_login(self):
         find_element(self.driver, LOCATOR_MY_ACC_BTN).click()
-        # find_element(self.driver, LOCATOR_LOGIN_OR_REG_BTN).click()
 
-    def got_to_sunglasses(self):
-        action = webdriver.ActionChains(self.driver)
-        action.move_to_element(find_element(self.driver, LOCATOR_ACCESSORIES_BTN))
-        action.perform()
+    def go_to_sunglasses(self):
+        self._hover_to_accessories()
         find_element(self.driver, LOCATOR_SUNGLASSES_BTN).click()
 
     def go_to_favorites(self):
-        find_element(self.driver, LOCATOR_ACCESSORIES_BTN).click()
-        find_element(self.driver, LOCATOR_WATCHES_BTN).click()
+        find_element(self.driver, LOCATOR_FAVORITES_BTN).click()
 
     def go_to_watches(self):
-        find_element(self.driver, LOCATOR_ACCESSORIES_BTN).click()
+        self._hover_to_accessories()
         find_element(self.driver, LOCATOR_WATCHES_BTN).click()
+
+    def _hover_to_accessories(self):
+        action = webdriver.ActionChains(self.driver)
+        action.move_to_element(find_element(self.driver, LOCATOR_ACCESSORIES_BTN))
+        action.perform()
 
     def get_count_items_in_bug(self, is_empty=False):
         if not is_empty:

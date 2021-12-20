@@ -9,7 +9,7 @@ def test_check_the_add_to_bag_func(driver, test_data, config_data):
     page = BasePageHelper(driver)
     page.open_url(test_data['url'])
     for i in range(config_data['count_of_items_in_the_bag']):
-        page.got_to_sunglasses()
+        page.go_to_sunglasses()
         page = ProductPageHelper(driver)
         page.filter_by_brand(config_data['brand_name'])
         page.add_to_bag(elem)
