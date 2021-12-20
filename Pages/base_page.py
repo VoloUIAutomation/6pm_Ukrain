@@ -1,10 +1,11 @@
 from Helpers.helpers import *
 from selenium.webdriver.common.by import By
+from selenium import webdriver
 
 LOCATOR_MY_ACC_BTN = (By.XPATH, '//a[@href="/account"and @class="y-z"]')
 LOCATOR_LOGIN_OR_REG_BTN = (By.XPATH, '//div[@class="q-z"]//a[@href="/login"]')
 LOCATOR_ACCESSORIES_BTN = (By.XPATH, '//a[@href="/accessories"]')
-LOCATOR_SUNGLASSES_BTN = (By.XPATH, '//a[contains(text(),"sunglasses")]')
+LOCATOR_SUNGLASSES_BTN = (By.XPATH, '//a[text()="Sunglasses"]')
 LOCATOR_BAG_BTN = (By.XPATH, '//a[@href="/cart"]')
 LOCATOR_CLOSE_INFO_BUG_POP_UP_BTN = (By.XPATH, '//button[@aria-label="Close"]')
 LOCATOR_VIEW_BUG_BTN = (By.XPATH, '//a[@href="/cart" and @class="tt-z"]')
@@ -20,12 +21,17 @@ class BasePageHelper:
         self.find_elements = find_elements
         self.check_elem_doesnt_present = check_elem_doesnt_present
 
+    def open_url(self, url):
+        self.driver.get(url)
+
     def go_to_login(self):
         find_element(self.driver, LOCATOR_MY_ACC_BTN).click()
-        find_element(self.driver, LOCATOR_LOGIN_OR_REG_BTN).click()
+        # find_element(self.driver, LOCATOR_LOGIN_OR_REG_BTN).click()
 
     def got_to_sunglasses(self):
-        find_element(self.driver, LOCATOR_ACCESSORIES_BTN).click()
+        action = webdriver.ActionChains(self.driver)
+        action.move_to_element(find_element(self.driver, LOCATOR_ACCESSORIES_BTN))
+        action.perform()
         find_element(self.driver, LOCATOR_SUNGLASSES_BTN).click()
 
     def go_to_favorites(self):
@@ -36,8 +42,12 @@ class BasePageHelper:
         find_element(self.driver, LOCATOR_ACCESSORIES_BTN).click()
         find_element(self.driver, LOCATOR_WATCHES_BTN).click()
 
-    def get_count_items_in_bug(self, is_empty=True):
+    def get_count_items_in_bug(self, is_empty=False):
         if not is_empty:
-            return find_element(self.driver, LOCATOR_BAG_COUNT_LABEL).text
+            return int(find_element(self.driver, LOCATOR_BAG_COUNT_LABEL).text)
         else:
-            return check_elem_doesnt_present(self.driver, LOCATOR_BAG_COUNT_LABEL)
+            return find_element(self.driver, LOCATOR_BAG_COUNT_LABEL).text
+
+    def go_to_bag(self):
+        find_element(self.driver, LOCATOR_BAG_BTN).click()
+        find_element(self.driver, LOCATOR_VIEW_BUG_BTN).click()

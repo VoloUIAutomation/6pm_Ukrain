@@ -9,6 +9,7 @@ LOCATOR_ITEM = (By.XPATH, '//*[@id="main"]/div/div/div/div/div[@class="Pw-z"]')
 LOCATOR_TOTAL_COUNT = (By.XPATH, '//dt[text()="Subtotal"]/span')
 LOCATOR_REMOVE_ITEM_BTN = (By.XPATH, '//button[@aria-label="Remove Item"]')
 LOCATOR_EMPTY_BAG_MSG = (By.XPATH, '//main//p[contains(text(), "Fill up")]')
+LOCATOR_ITEMS_PRICE = (By.XPATH, '//em[@class="Zw-z bx-z" and contains(text(),"$")]')
 
 
 class BagPageHelper(BasePageHelper):
@@ -28,3 +29,7 @@ class BagPageHelper(BasePageHelper):
         for i in range(len(self.find_elements(self.driver, LOCATOR_REMOVE_ITEM_BTN))):
             self.find_element(self.driver, LOCATOR_REMOVE_ITEM_BTN).click()
             time.sleep(1)
+
+    def get_sum_of_all_item_costs(self):
+        elms = self.find_elements(self.driver, LOCATOR_ITEM_PRICE)
+        return round(sum([float(re.sub('\\$', '', i.text)) for i in elms]), 2)
